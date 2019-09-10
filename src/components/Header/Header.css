@@ -1,0 +1,10 @@
+.VizHeader {
+    grid-row: 1;
+    background-color: #83b582;
+    padding: 10px;
+}
+
+.VizHeader label {
+    position: relative;
+    z-index: 2;
+}

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import BarChart from "./components/BarChart/BarChart.js"
+import Header from "./components/Header/Header.js"
 
 
 class App extends Component {
@@ -149,38 +151,12 @@ class App extends Component {
     })
   }
   
-  alertDiff = (record) => {
-    alert(record.TEAM_ABR + " won " + (record.REG_W_PCT - record.PLYOFF_W_PCT) + "% fewer of their games during the playoffs.")
-  }
   
   render() {
     return (
         <div className="Viz">
-            <div className="VizHeader">
-                <h1>2018-19 NBA Regular Season vs. Playoffs Winning %</h1>
-                <div className="DimensionChooser">
-                  <label>Conference:
-                    <select className="DimensionChooser-select" id="dim1" onClick={this.onDimChange}>
-                      <option>All</option>
-                      <option>Eastern</option>
-                      <option>Western</option>
-                    </select>
-                </label>
-                </div>
-            </div>
-            <div className="VizWrapper" id="chart">
-              {
-                this.state.mergedData.map((record,index) => (
-                  (this.state.conference === "All" || this.state.conference === record.TEAM_CONF) && (
-                    <div className="VizItem" key={index} onClick={() => this.alertDiff(record)}>
-                      <div className="VizData VizRegular" style={{height: record.REG_W_PCT + "%"}}><label>{record.REG_W_PCT}</label></div>
-                      <div className="VizData VizPlayoff" style={{height: record.PLYOFF_W_PCT + "%"}}><label>{record.PLYOFF_W_PCT}</label></div>
-                      <div className="VizLabel">{record.TEAM_ABR}</div>
-                    </div>
-                  )
-                ))
-              }
-            </div>
+          <Header onDimSelect={this.onDimChange} />
+          <BarChart data={this.state.mergedData} conference={this.state.conference} />
         </div>
     );
   }
